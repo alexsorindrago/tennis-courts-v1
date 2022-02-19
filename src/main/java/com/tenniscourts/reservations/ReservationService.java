@@ -17,7 +17,9 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
 
     public ReservationDTO bookReservation(CreateReservationRequestDTO createReservationRequestDTO) {
-        throw new UnsupportedOperationException();
+        Reservation reservation = reservationMapper.map(createReservationRequestDTO);
+        reservation.setValue(BigDecimal.TEN);
+        return reservationMapper.map(reservationRepository.save(reservation));
     }
 
     public ReservationDTO findReservation(Long reservationId) {
@@ -71,14 +73,14 @@ public class ReservationService {
         return BigDecimal.ZERO;
     }
 
-    /*TODO: This method actually not fully working, find a way to fix the issue when it's throwing the error:
+    /*DONE: This method actually not fully working, find a way to fix the issue when it's throwing the error:
             "Cannot reschedule to the same slot.*/
     public ReservationDTO rescheduleReservation(Long previousReservationId, Long scheduleId) {
-        Reservation previousReservation = cancel(previousReservationId);
-
-        if (scheduleId.equals(previousReservation.getSchedule().getId())) {
+        if (scheduleId.equals(this.findReservation(previousReservationId).getScheduledId())) {
             throw new IllegalArgumentException("Cannot reschedule to the same slot.");
         }
+
+        Reservation previousReservation = cancel(previousReservationId);
 
         previousReservation.setReservationStatus(ReservationStatus.RESCHEDULED);
         reservationRepository.save(previousReservation);
