@@ -49,6 +49,27 @@ public class ReservationServiceTest {
     }
 
     @Test
+    public void shouldBookReservation() {
+        // given
+        CreateReservationRequestDTO createReservationRequestDTOMock = CreateReservationRequestDTO.builder()
+                .scheduleId(1L)
+                .guestId(1L)
+                .build();
+        Reservation reservationMock = getReservationMock();
+        ReservationDTO reservationDTOMock = getReservationDTOMock();
+
+        when(reservationMapper.map(createReservationRequestDTOMock)).thenReturn(reservationMock);
+        when(reservationRepository.save(reservationMock)).thenReturn(reservationMock);
+        when(reservationMapper.map(reservationMock)).thenReturn(reservationDTOMock);
+
+        // when
+        ReservationDTO result = reservationService.bookReservation(createReservationRequestDTOMock);
+
+        // then
+        assertThat(result).isNotNull();
+    }
+
+    @Test
     public void shouldRescheduleReservation() {
         // given
         Reservation reservationMock = getReservationMock();
@@ -64,6 +85,5 @@ public class ReservationServiceTest {
 
         // then
         assertThat(result).isNotNull();
-
     }
 }
