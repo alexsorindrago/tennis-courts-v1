@@ -70,6 +70,18 @@ class ScheduleServiceTest {
         assertThat(result).isNotNull();
     }
 
+    @Test
+    void findSchedulesByTennisCourtId() {
+        // given
+        setup();
+
+        // when
+        List<ScheduleDTO> result = scheduleService.findSchedulesByTennisCourtId(setup().getTennisCourt().getId());
+
+        // then
+        assertThat(result).isNotNull();
+    }
+
     private Schedule setup() {
         TennisCourt tennisCourt = new TennisCourt();
         tennisCourt.setId(1L);
@@ -83,13 +95,4 @@ class ScheduleServiceTest {
         scheduleRepository.save(schedule);
         return schedule;
     }
-//
-//    @Test
-//    void findSchedulesByTennisCourtId() {
-//        // given
-//
-//        // when
-//
-//        // then
-//    }
 }
