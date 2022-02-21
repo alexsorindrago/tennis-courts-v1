@@ -29,8 +29,9 @@ public class TennisCourtController extends BaseRestController {
         return ResponseEntity.ok(tennisCourtService.findTennisCourtById(tennisCourtId));
     }
 
-    //TODO: implement rest and swagger
-    public ResponseEntity<TennisCourtDTO> findTennisCourtWithSchedulesById(Long tennisCourtId) {
+    //DONE: implement rest and swagger
+    @GetMapping("/court-schedules/{tennisCourtId}")
+    public ResponseEntity<TennisCourtDTO> findTennisCourtWithSchedulesById(@RequestParam("tennisCourtId") Long tennisCourtId) {
         return ResponseEntity.ok(tennisCourtService.findTennisCourtWithSchedulesById(tennisCourtId));
     }
 }
