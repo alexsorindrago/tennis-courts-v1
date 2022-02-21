@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
@@ -45,7 +48,7 @@ class GuestServiceTest {
     }
 
     @Test
-    void findByName() {
+    void shouldFindByName() {
         // given
         CreateGuestRequestDTO createGuestRequestDTO = CreateGuestRequestDTO.builder()
                 .name("guest")
@@ -58,4 +61,16 @@ class GuestServiceTest {
         // then
         assertNotNull(result);
     }
+
+    @Test
+    void shouldFindAll() {
+        //given Rafael Nadal and Roger Federer aleady in DB
+
+        //when
+        List<GuestDTO> result = guestService.findAllGuests();
+
+        //then
+        assertThat(result.size()).isEqualTo(2);
+    }
+
 }

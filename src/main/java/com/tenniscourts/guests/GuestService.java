@@ -4,6 +4,8 @@ import com.tenniscourts.exceptions.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class GuestService {
@@ -29,5 +31,9 @@ public class GuestService {
 
     public GuestDTO findByName(String guestName) {
         return guestMapper.map(guestRepository.findByNameContaining(guestName));
+    }
+
+    public List<GuestDTO> findAllGuests() {
+        return guestMapper.map(guestRepository.findAll());
     }
 }

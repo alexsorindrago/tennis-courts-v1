@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/guest")
@@ -30,6 +32,11 @@ public class GuestController extends BaseRestController {
     @GetMapping("/{guestName}")
     public ResponseEntity<GuestDTO> findByName(@RequestParam String guestName) {
         return ResponseEntity.ok(guestService.findByName(guestName));
+    }
+
+    @GetMapping("allGuests")
+    public ResponseEntity<List<GuestDTO>> findAllGuests() {
+        return ResponseEntity.ok(guestService.findAllGuests());
     }
 
 }
