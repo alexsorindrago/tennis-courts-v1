@@ -15,26 +15,35 @@ class TennisCourtServiceTest {
     @Test
     void shouldAddTennisCourt() {
         // given
-        TennisCourtDTO tennisCourtDTO = TennisCourtDTO.builder()
-                .name("court1")
-                .build();
+        setup();
 
         // when
-        TennisCourtDTO result = tennisCourtService.addTennisCourt(tennisCourtDTO);
+        TennisCourtDTO result = tennisCourtService.addTennisCourt(setup());
 
         // then
         assertNotNull(result);
     }
 
-//    @Test
-//    void findTennisCourtById() {
-//        // given
-//
-//        // when
-//
-//        // then
-//    }
-//
+    @Test
+    void findTennisCourtById() {
+        // given
+        setup();
+
+        // when
+        TennisCourtDTO result = tennisCourtService.findTennisCourtById(setup().getId());
+
+        // then
+        assertNotNull(result);
+    }
+
+    private TennisCourtDTO setup() {
+        TennisCourtDTO tennisCourtDTO = TennisCourtDTO.builder()
+                .id(1L)
+                .name("court1")
+                .build();
+        return tennisCourtDTO;
+    }
+
 //    @Test
 //    void findTennisCourtWithSchedulesById() {
 //        // given
