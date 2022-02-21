@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,11 @@ public class GuestController extends BaseRestController {
     @GetMapping("allGuests")
     public ResponseEntity<List<GuestDTO>> findAllGuests() {
         return ResponseEntity.ok(guestService.findAllGuests());
+    }
+
+    @PutMapping
+    public ResponseEntity<GuestDTO> updateGuest(@RequestParam("guestId") Long guestId, @RequestParam("name") String name) {
+        return ResponseEntity.ok(guestService.updateGuest(guestId, name));
     }
 
 }

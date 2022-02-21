@@ -73,4 +73,18 @@ class GuestServiceTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
+    @Test
+    void shouldUpdateGuest() {
+        //given guests already in DB
+        String newName = guestService.findAllGuests().get(1).getName();
+        Long id = guestService.findAllGuests().get(1).getId();
+
+        //when
+        GuestDTO result = guestService.updateGuest(id, newName);
+
+        //then
+        assertThat(guestService.findById(id).getName()).isEqualTo(result.getName());
+
+    }
+
 }

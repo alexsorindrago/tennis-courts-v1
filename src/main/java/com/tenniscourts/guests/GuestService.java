@@ -36,4 +36,10 @@ public class GuestService {
     public List<GuestDTO> findAllGuests() {
         return guestMapper.map(guestRepository.findAll());
     }
+
+    public GuestDTO updateGuest(Long guestId, String newName) {
+        Guest guest = findById(guestId);
+        guest.setName(newName);
+        return guestMapper.map(guestRepository.save(guest));
+    }
 }
