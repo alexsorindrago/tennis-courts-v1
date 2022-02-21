@@ -3,6 +3,7 @@ package com.tenniscourts.guests;
 import com.tenniscourts.config.BaseRestController;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,5 +45,12 @@ public class GuestController extends BaseRestController {
     public ResponseEntity<GuestDTO> updateGuest(@RequestParam("guestId") Long guestId, @RequestParam("name") String name) {
         return ResponseEntity.ok(guestService.updateGuest(guestId, name));
     }
+
+    @DeleteMapping("{guestId}")
+    public ResponseEntity<Void> deleteGuest(@RequestParam("guestId") Long guestId) {
+        guestService.deleteGuest(guestId);
+        return ResponseEntity.created(locationByEntity(guestId)).build();
+    }
+
 
 }

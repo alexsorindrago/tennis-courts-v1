@@ -42,4 +42,11 @@ public class GuestService {
         guest.setName(newName);
         return guestMapper.map(guestRepository.save(guest));
     }
+
+    public void deleteGuest(Long guestId) {
+        Guest guest = guestRepository.findById(guestId).orElseThrow(()
+                -> new EntityNotFoundException("guest not found"));
+        guestRepository.delete(guest);
+    }
+
 }

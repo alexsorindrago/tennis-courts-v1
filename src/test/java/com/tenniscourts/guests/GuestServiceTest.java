@@ -76,7 +76,7 @@ class GuestServiceTest {
     @Test
     void shouldUpdateGuest() {
         //given guests already in DB
-        String newName = guestService.findAllGuests().get(1).getName();
+        String newName = guestService.findAllGuests().get(0).getName();
         Long id = guestService.findAllGuests().get(1).getId();
 
         //when
@@ -84,6 +84,18 @@ class GuestServiceTest {
 
         //then
         assertThat(guestService.findById(id).getName()).isEqualTo(result.getName());
+    }
+
+    @Test
+    void shouldDeleteGuest() {
+        //given guests in DB
+        Long id = guestService.findAllGuests().get(1).getId();
+
+        //when
+        guestService.deleteGuest(id);
+
+        //
+        assertThat(guestService.findAllGuests().size()).isEqualTo(1);
 
     }
 
