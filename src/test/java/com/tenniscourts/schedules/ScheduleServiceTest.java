@@ -47,8 +47,30 @@ class ScheduleServiceTest {
     }
 
     @Test
-    void findSchedulesByDates() {
+    void shouldFindSchedulesByDates() {
         // given
+        setup();
+
+        // when
+        List<ScheduleDTO> result = scheduleService.findSchedulesByDates(LocalDateTime.now(), LocalDateTime.now().plusDays(4));
+
+        // then
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void shouldFindSchedule() {
+        // given
+        Schedule schedule = setup();
+
+        // when
+        ScheduleDTO result = scheduleService.findSchedule(schedule.getId());
+
+        // then
+        assertThat(result).isNotNull();
+    }
+
+    private Schedule setup() {
         TennisCourt tennisCourt = new TennisCourt();
         tennisCourt.setId(1L);
         tennisCourt.setName("court1");
@@ -59,22 +81,8 @@ class ScheduleServiceTest {
         schedule.setStartDateTime(LocalDateTime.now().plusDays(1));
         schedule.setEndDateTime(LocalDateTime.now().plusDays(1).plusHours(1));
         scheduleRepository.save(schedule);
-
-        // when
-        List<ScheduleDTO> result = scheduleService.findSchedulesByDates(LocalDateTime.now(), LocalDateTime.now().plusDays(4));
-
-        // then
-        assertThat(result).isNotNull();
+        return schedule;
     }
-//
-//    @Test
-//    void findSchedule() {
-//        // given
-//
-//        // when
-//
-//        // then
-//    }
 //
 //    @Test
 //    void findSchedulesByTennisCourtId() {

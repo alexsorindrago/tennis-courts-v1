@@ -38,8 +38,8 @@ public class ScheduleService {
     }
 
     public ScheduleDTO findSchedule(Long scheduleId) {
-        //TODO: implement
-        return null;
+        //DONE: implement
+        return scheduleMapper.map(scheduleRepository.findById(scheduleId).orElseThrow(() -> new EntityNotFoundException("schedule not found")));
     }
 
     public List<ScheduleDTO> findSchedulesByTennisCourtId(Long tennisCourtId) {
