@@ -27,4 +27,9 @@ public class GuestController extends BaseRestController {
         return ResponseEntity.ok(guestService.findDtoById(guestId));
     }
 
+    @GetMapping("/{guestName}")
+    public ResponseEntity<GuestDTO> findByName(@RequestParam String guestName) {
+        return ResponseEntity.ok(guestService.findByName(guestName));
+    }
+
 }

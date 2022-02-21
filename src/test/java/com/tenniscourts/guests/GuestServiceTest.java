@@ -43,4 +43,19 @@ class GuestServiceTest {
         // then
         assertNotNull(result);
     }
+
+    @Test
+    void findByName() {
+        // given
+        CreateGuestRequestDTO createGuestRequestDTO = CreateGuestRequestDTO.builder()
+                .name("guest")
+                .build();
+        GuestDTO guestDTO = guestService.createGuest(createGuestRequestDTO);
+
+        // when
+        GuestDTO result = guestService.findByName(guestMapper.map(guestDTO).getName());
+
+        // then
+        assertNotNull(result);
+    }
 }
