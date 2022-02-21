@@ -12,8 +12,11 @@ class GuestServiceTest {
     @Autowired
     GuestService guestService;
 
+    @Autowired
+    GuestMapper guestMapper;
+
     @Test
-    void createGuest() {
+    void shouldCreateGuest() {
         // given
         CreateGuestRequestDTO createGuestRequestDTO = CreateGuestRequestDTO.builder()
                 .name("guest")
@@ -21,6 +24,21 @@ class GuestServiceTest {
 
         // when
         GuestDTO result = guestService.createGuest(createGuestRequestDTO);
+
+        // then
+        assertNotNull(result);
+    }
+
+    @Test
+    void shouldFindById() {
+        // given
+        CreateGuestRequestDTO createGuestRequestDTO = CreateGuestRequestDTO.builder()
+                .name("guest")
+                .build();
+        GuestDTO guestDTO = guestService.createGuest(createGuestRequestDTO);
+
+        // when
+        Guest result = guestService.findById(guestMapper.map(guestDTO).getId());
 
         // then
         assertNotNull(result);
