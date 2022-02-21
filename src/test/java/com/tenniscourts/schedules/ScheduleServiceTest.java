@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,6 +25,9 @@ class ScheduleServiceTest {
 
     @Autowired
     TennisCourtRepository tennisCourtRepository;
+
+    @Autowired
+    ScheduleRepository scheduleRepository;
 
     @Test
     void shouldAddSchedule() {
@@ -45,10 +49,22 @@ class ScheduleServiceTest {
     @Test
     void findSchedulesByDates() {
         // given
+        TennisCourt tennisCourt = new TennisCourt();
+        tennisCourt.setId(1L);
+        tennisCourt.setName("court1");
+        tennisCourtRepository.save(tennisCourt);
+        Schedule schedule = new Schedule();
+        schedule.setId(1L);
+        schedule.setTennisCourt(tennisCourt);
+        schedule.setStartDateTime(LocalDateTime.now().plusDays(1));
+        schedule.setEndDateTime(LocalDateTime.now().plusDays(1).plusHours(1));
+        scheduleRepository.save(schedule);
 
         // when
+        List<ScheduleDTO> result = scheduleService.findSchedulesByDates(LocalDateTime.now(), LocalDateTime.now().plusDays(4));
 
         // then
+        assertThat(result).isNotNull();
     }
 //
 //    @Test

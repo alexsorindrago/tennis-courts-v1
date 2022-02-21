@@ -33,8 +33,8 @@ public class ScheduleService {
     }
 
     public List<ScheduleDTO> findSchedulesByDates(LocalDateTime startDate, LocalDateTime endDate) {
-        //TODO: implement
-        return null;
+        //DONE: implement
+        return scheduleMapper.map(scheduleRepository.findByStartDateTimeBetween(startDate, endDate));
     }
 
     public ScheduleDTO findSchedule(Long scheduleId) {
